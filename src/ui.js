@@ -13,6 +13,7 @@ export default class Ui {
    * @param {function} onSelectFile - callback for clicks on Select file buttor
    */
   constructor({ api, config, onSelectFile }) {
+    console.log('image tool config is', config);
     this.api = api;
     this.config = config;
     this.onSelectFile = onSelectFile;
@@ -24,6 +25,9 @@ export default class Ui {
       imagePreloader: make('div', this.CSS.imagePreloader),
       caption: make('div', [this.CSS.input, this.CSS.caption], {
         contentEditable: true
+      }),
+      quantity: make('div', [this.CSS.input, this.CSS.quantity], {
+        contentEditable: true
       })
     };
 
@@ -34,13 +38,18 @@ export default class Ui {
      *      <image-preloader />
      *    </image-container>
      *    <caption />
+     *    <quantity />
      *    <select-file-button />
      *  </wrapper>
      */
     this.nodes.caption.dataset.placeholder = this.config.captionPlaceholder;
+    this.nodes.quantity.dataset.placeholder = this.config.quantityPlaceholder;
     this.nodes.imageContainer.appendChild(this.nodes.imagePreloader);
     this.nodes.wrapper.appendChild(this.nodes.imageContainer);
     this.nodes.wrapper.appendChild(this.nodes.caption);
+    if (config.withQuantity) {
+      this.nodes.wrapper.appendChild(this.nodes.quantity);
+    }
     this.nodes.wrapper.appendChild(this.nodes.fileButton);
   }
 
@@ -62,7 +71,8 @@ export default class Ui {
       imageContainer: 'image-tool__image',
       imagePreloader: 'image-tool__image-preloader',
       imageEl: 'image-tool__image-picture',
-      caption: 'image-tool__caption'
+      caption: 'image-tool__caption',
+      quantity: 'image-tool__caption'
     };
   };
 
@@ -201,6 +211,16 @@ export default class Ui {
   fillCaption(text) {
     if (this.nodes.caption) {
       this.nodes.caption.innerHTML = text;
+    }
+  }
+
+  /**
+   * Shows quantity input
+   * @param {string} text - caption text
+   */
+  fillQuantity(text) {
+    if (this.nodes.quantity) {
+      this.nodes.quantity.innerHTML = text;
     }
   }
 

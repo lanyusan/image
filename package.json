@@ -1,6 +1,6 @@
 {
-  "name": "@editorjs/image",
-  "version": "2.3.3",
+  "name": "image-with-quantity",
+  "version": "0.0.1",
   "keywords": [
     "codex editor",
     "tool",
@@ -8,9 +8,9 @@
     "editor.js",
     "editorjs"
   ],
-  "description": "Image Tool for Editor.js",
+  "description": "Enhanced Image Tool for Editor.js with quanity field",
   "license": "MIT",
-  "repository": "https://github.com/editor-js/image",
+  "repository": "https://github.com/lanyusan/image",
   "main": "./dist/bundle.js",
   "scripts": {
     "build": "webpack --mode production",

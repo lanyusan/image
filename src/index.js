@@ -59,6 +59,7 @@ import Uploader from './uploader';
  * @property {object} additionalRequestData - any data to send with requests
  * @property {object} additionalRequestHeaders - allows to pass custom headers with Request
  * @property {string} buttonContent - overrides for Select File button
+ * @property {boolean} withQuantity - if show quantity input field
  * @property {object} [uploader] - optional custom uploader
  * @property {function(File): Promise.<UploadResponseFormat>} [uploader.uploadByFile] - method that upload image by File
  * @property {function(string): Promise.<UploadResponseFormat>} [uploader.uploadByUrl] - method that upload image by URL
@@ -106,8 +107,10 @@ export default class ImageTool {
       field: config.field || 'image',
       types: config.types || 'image/*',
       captionPlaceholder: config.captionPlaceholder || 'Caption',
+      quantityPlaceholder: config.quantityPlaceholder || 'Quantity',
       buttonContent: config.buttonContent || '',
-      uploader: config.uploader || undefined
+      uploader: config.uploader || undefined,
+      withQuantity: config.withQuantity || false
     };
 
     /**
@@ -167,8 +170,10 @@ export default class ImageTool {
    */
   save() {
     const caption = this.ui.nodes.caption;
+    const quantity = this.ui.nodes.quantity;
 
     this._data.caption = caption.innerHTML;
+    this._data.quantity = quantity.innerHTML;
 
     return this.data;
   }
@@ -272,7 +277,9 @@ export default class ImageTool {
     this.image = data.file;
 
     this._data.caption = data.caption || '';
+    this._data.quantity = data.quantity || '';
     this.ui.fillCaption(this._data.caption);
+    this.ui.fillQuantity(this._data.quantity);
 
     Tunes.tunes.forEach(({ name: tune }) => {
       const value = typeof data[tune] !== 'undefined' ? data[tune] === true || data[tune] === 'true' : false;
