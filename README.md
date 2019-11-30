@@ -2,9 +2,9 @@
 
 # Note
 
-This is an enhancement for Editor.js's ImageTool plugin, with an extra field: quantity.
+This is an enhancement for Editor.js's ImageTool plugin, with an extra field: quantity. It is used for editing product component data, each entry is typically composed of name, quanity and image
 
-Too extra config options are added:
+Two extra config options are added:
 
 withQuantity: boolean - default to false. If set to true, quantity input will be added after caption. If set to false, it will be displayed.
 
