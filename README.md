@@ -2,11 +2,13 @@
 
 # Note
 
-This is an enhancement for Editor.js's ImageTool plugin, with an extra field: quantity. It is used for editing product component data, each entry is typically composed of name, quanity and image
+This is an enhancement for Editor.js's ImageTool plugin, with an extra field: quantity. It is used for editing product component data, each entry is typically composed of name, quanity and image. 
+
+In this tool, caption is used for name field.
 
 Two extra config options are added:
 
-withQuantity: boolean - default to false. If set to true, quantity input will be added after caption. If set to false, it will be displayed.
+withQuantity: boolean - default to false. If set to true, quantity input will be added after caption. If set to false, it will be NOT displayed.
 
 quantityPlaceholder: string - set quantity input placeholder, default to 'Quantity'
 
@@ -34,40 +36,32 @@ Image Block for the [Editor.js](https://editorjs.io).
 Get the package
 
 ```shell
-npm i --save-dev @editorjs/image
+npm i --save-dev image-with-quantity
 ```
 
 Include module at your application
 
 ```javascript
-import ImageTool from '@editorjs/image';
+import ImageTool from 'image-with-quantity;
 ```
 
-### Other methods 
+### Other methods
 
 #### Manual downloading and connecting
 
 1. Upload folder `dist` from repository
 2. Add `dist/bundle.js` file to your page.
 
-#### Loading from CDN
-
-You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/image).
-
-`https://cdn.jsdelivr.net/npm/@editorjs/image@2.3.0`
-
-Then require this script on page with Editor.js through the `<script src=""></script>` tag.
-
 ## Usage
 
 Add a new Tool to the `tools` property of the Editor.js initial config.
 
 ```javascript
-import ImageTool from '@editorjs/image';
+import ImageTool from 'image-with-quantity;
 
 // or if you inject ImageTool via standalone script
 const ImageTool = window.ImageTool;
- 
+
 var editor = EditorJS({
   ...
 
@@ -75,6 +69,8 @@ var editor = EditorJS({
     ...
     image: {
       class: ImageTool,
+      withQuantity: true, // optional, default: false
+      quantityPlaceholder: 'Quantity', // optional, default: Quantity
       config: {
         endpoints: {
           byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
@@ -102,8 +98,10 @@ Image Tool supports these configuration parameters:
 | captionPlaceholder | `string` | (default: `Caption`) Placeholder for Caption input |
 | buttonContent | `string` | Allows to override HTML content of «Select file» button |
 | uploader | `{{uploadByFile: function, uploadByUrl: function}}` | Optional custom uploading methods. See details below. |
+| withQuantity |`boolean` | (default: `false`)If show quantity input field. |
+| quantityPlaceholder | `string` | (default: `quantity`) Placeholder for Quantity input |
 
-Note that if you don't implement your custom uploader methods, the `endpoints` param is required. 
+Note that if you don't implement your custom uploader methods, the `endpoints` param is required.
 
 ## Tool's settings
 
@@ -126,6 +124,7 @@ This Tool returns `data` with following format
 | withBorder     | `boolean` | add border to image             |
 | withBackground | `boolean` | need to add background          |
 | stretched      | `boolean` | stretch image to screen's width |
+| quantity       | `string`  | quanity field, typically used for editing product components |
 
 
 ```json
@@ -138,7 +137,8 @@ This Tool returns `data` with following format
         "caption" : "Roadster // tesla.com",
         "withBorder" : false,
         "withBackground" : false,
-        "stretched" : true
+        "stretched" : true,
+        "quantity": '2'
     }
 }
 ```
